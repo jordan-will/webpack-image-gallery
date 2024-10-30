@@ -1,27 +1,49 @@
 import { getImages } from "./service/axios";
+import createSearchBar from "./components/searchbar/searchBar";
+import '../public/style.css';
 
-console.log('Project running...')
-
+const searchBar = document.getElementById('searchBar')
 const gallery = document.getElementById('gallery');
-console.log('gallery ', gallery)
+let page = 1
+
+const { searchBar: search, inputSeachBar, buttonSeachBar } = createSearchBar()
+searchBar.appendChild(search)
+
+gallery.addEventListener('scroll', ()=>{
+    console.log(gallery.scrollTop, gallery.clientHeight, gallery.scrollHeight)
+    if (gallery.scrollTop + gallery.clientHeight >= (gallery.scrollHeight - 10)) {
+        page+=1
+        setImages(inputSeachBar.value || 'Amazon animals', page)
+    }
+});
+
+
+buttonSeachBar.addEventListener('click', () => {
+    if (!inputSeachBar.value) {
+        alert('Insert the field of the search')
+        return
+    }
+    gallery.innerHTML = ''
+    page=1
+    setImages(inputSeachBar.value)
+
+})
 
 const addImage = (image) => {
-        const img = document.createElement('img');
-        img.src = image.src.portrait;
-        img.className = 'image-item';
-        img.addEventListener('click', () => {
-            //window.location.href = `pages/image.html?src=${image.url}`;
-            alert('Clicou na imagem')
-        });
-        gallery.appendChild(img)
-    }
+    const img = document.createElement('img');
+    img.src = image.src.portrait;
+    img.classList.add('image-item');
+    gallery.appendChild(img)
+}
 
-    getImages()
+const setImages = (search = 'Amazon Animals', page = 1) => {
+    getImages(search, page)
         .then((img) => {
-            console.log('Images')
+            console.log('Images', img)
             const images = img['data']['photos']
             console.log(images)
-            images.forEach((image)=>{
+
+            images.forEach((image) => {
                 console.log('image ', image)
                 addImage(image)
             })
@@ -30,5 +52,8 @@ const addImage = (image) => {
         .catch((err) => {
             console.log('Erro on get images ', err)
         })
+}
+
+setImages()
 
 

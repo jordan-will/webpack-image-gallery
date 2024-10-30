@@ -1,0 +1,58 @@
+#searchBar{
+    display: flex;
+    justify-content: center;
+    background-color: #f4f4f4;
+    margin-bottom: 10px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+#gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-bottom: 10px;
+    overflow-y: scroll;
+    height: 100vh;
+}
+
+.image-item {
+    flex: 1 1 35%;
+    margin: 2px;
+    box-sizing: border-box;
+    max-width: 400px;
+    width: 100%;
+    cursor: pointer;
+}
+
+
+@media (max-width: 1200px) {
+    .image-item {
+        flex: 1 1 45%;
+    }
+}
+
+@media (max-width: 992px) {
+    #gallery{
+        justify-content: center;
+    }
+    .image-item {
+        flex: 1 1 50%;
+        max-width: 400px;
+    }
+}
+
+@media (max-width: 768px) {
+    #gallery{
+        justify-content: center;
+    }
+    .image-item {
+        flex: 1 1 100%;
+        max-width: 100%;
+    }
+}

@@ -9,11 +9,13 @@ const axiosInstance = axios.create({
     headers: { 'Authorization': API_KEY }
 })
 
-const getImages = () => {
+const getImages = (search, page=1) => {
     return axiosInstance.get('search', {
         params: {
-            query: 'animals',
-            per_page: '1'
+            query: search,
+            page: page,
+            per_page: '8',
+            next_page: "https://api.pexels.com/v1/curated/?page=2&per_page=1"
         },
     })
 }
