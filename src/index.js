@@ -2,58 +2,50 @@ import { getImages } from "./service/axios";
 import createSearchBar from "./components/searchbar/searchBar";
 import '../public/style.css';
 
-const searchBar = document.getElementById('searchBar')
-const gallery = document.getElementById('gallery');
-let page = 1
+const searchBar = document.querySelector('.search-bar');
+const gallery = document.querySelector('.gallery');
+let page = 1;
+const { searchBar: search, inputSearchBar, buttonSearchBar } = createSearchBar();
 
-const { searchBar: search, inputSeachBar, buttonSeachBar } = createSearchBar()
-searchBar.appendChild(search)
+searchBar.appendChild(search);
 
-gallery.addEventListener('scroll', ()=>{
-    console.log(gallery.scrollTop, gallery.clientHeight, gallery.scrollHeight)
+gallery.addEventListener('scroll', () => {
     if (gallery.scrollTop + gallery.clientHeight >= (gallery.scrollHeight - 10)) {
-        page+=1
-        setImages(inputSeachBar.value || 'Amazon animals', page)
+        page += 1;
+        setImages(inputSearchBar.value || 'Amazon animals', page);
     }
 });
 
 
-buttonSeachBar.addEventListener('click', () => {
-    if (!inputSeachBar.value) {
-        alert('Insert the field of the search')
-        return
+buttonSearchBar.addEventListener('click', () => {
+    if (!inputSearchBar.value) {
+        alert('Insert the field of the search');
+        return;
     }
-    gallery.innerHTML = ''
-    page=1
-    setImages(inputSeachBar.value)
-
-})
+    gallery.innerHTML = '';
+    page = 1;
+    setImages(inputSearchBar.value);
+});
 
 const addImage = (image) => {
     const img = document.createElement('img');
     img.src = image.src.portrait;
-    img.classList.add('image-item');
-    gallery.appendChild(img)
-}
+    img.classList.add('gallery__item');
+    gallery.appendChild(img);
+};
 
 const setImages = (search = 'Amazon Animals', page = 1) => {
     getImages(search, page)
         .then((img) => {
-            console.log('Images', img)
-            const images = img['data']['photos']
-            console.log(images)
-
+            const images = img['data']['photos'];
             images.forEach((image) => {
-                console.log('image ', image)
-                addImage(image)
-            })
+                addImage(image);
+            });
 
         })
         .catch((err) => {
-            console.log('Erro on get images ', err)
-        })
-}
+            console.log('Error on getting images ', err);
+        });
+};
 
-setImages()
-
-
+setImages();

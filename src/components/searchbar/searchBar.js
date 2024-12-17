@@ -1,26 +1,26 @@
 import './searchBar.css';
 
-const createSearchBar = () =>{
+const createSearchBar = () => {
     
-    const searchBar = document.createElement('div')
-    searchBar.classList.add('search-bar')
+    const searchBar = document.createElement('div');
 
-    const inputSeachBar = document.createElement('input')
-    inputSeachBar.type = 'text'
-    inputSeachBar.placeholder = 'Search by photos'
+    const inputSearchBar = document.createElement('input');
+    inputSearchBar.type = 'text';
+    inputSearchBar.placeholder = 'Search by photos';
+    inputSearchBar.classList.add('search-bar__input');
 
-    const buttonSeachBar = document.createElement('button')
-    buttonSeachBar.textContent = 'Search'
+    const buttonSearchBar = document.createElement('button');
+    buttonSearchBar.textContent = 'Search';
+    buttonSearchBar.classList.add('search-bar__button'); 
 
-
-    searchBar.appendChild(inputSeachBar)
-    searchBar.appendChild(buttonSeachBar)
+    searchBar.appendChild(inputSearchBar);
+    searchBar.appendChild(buttonSearchBar);
 
     return {
         searchBar,
-        inputSeachBar,
-        buttonSeachBar
-    }
-}
+        inputSearchBar,
+        buttonSearchBar
+    };
+};
 
-export default createSearchBar
+export default createSearchBar;
